@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Погода и Новости</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Погода и Новости</h1>
+
+        <form method="POST" class="my-4">
+            <div class="form-group">
+                <input type="text" class="form-control" name="city" placeholder="Введите город" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Узнать погоду</button>
+        </form>
+
+        <div class="result mt-4">
+            {% if weather %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title">Погода в {{ weather['name'] }}</h3>
+                        <p class="card-text">Температура: {{ weather['main']['temp'] }}°C</p>
+                        <p class="card-text">Описание: {{ weather['weather'][0]['description'] }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="result mt-4">
+            {% if quote %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{ quote['content'] }}</p>
+                            <footer class="blockquote-footer">{{ quote['author'] }}</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="result mt-4">
+            {% if news %}
+                <h2>Новости:</h2>
+                <div class="list-group">
+                    {% for article in news %}
+                        <a href="{{ article['url'] }}" class="list-group-item list-group-item-action" target="_blank">
+                            {{ article['title'] }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
